@@ -272,7 +272,8 @@
     background-color: white;
     color: black;
     text-align: center;
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: 450;
     padding: 1.5rem 1rem;
   }
 
@@ -343,8 +344,26 @@
     right: 0;
   }
   
-  .error {
-    color: white;
+  #error {
+    display: none;
+    width: 70%;
+    background-color: rgb(240, 240, 240);
+    margin: 20px 0px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+  }
+
+  .error-icon{
+    margin: 0px 10px;
+    color: red;
     text-align: center;
-    margin-top: 20px;
+    padding: 1px;
+  }
+
+  #error-message {
+    color: rgb(255, 0, 0);
+    font-weight: 500;
+    text-align: center;
+    margin: 0px 10px;
   }

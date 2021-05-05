@@ -14,6 +14,10 @@ const JoinForm = () => {
         //prevent page from reloading upon submit
         e.preventDefault();
 
+        if (name === ''){
+            document.querySelector('#error').style.display = 'flex';
+            return;
+        }
 
         const createUserConfig = {
             method: 'post',
@@ -101,6 +105,14 @@ const JoinForm = () => {
                                 Get Name
                             </span>
                         </button>
+                    </div>
+                    <div id='error'>
+                        <span class='error-icon'>
+                            &#x26A0;  
+                        </span>
+                        <span id='error-message'>
+                            Please get a name first
+                        </span>
                     </div>
                     <div align="center">
                         <button className="button" type="submit">
