@@ -29,13 +29,17 @@ const ChatFeed = (props) => {
     }
 
     const renderReadReceipts = (message, isMyMessage) => {
+        //console.log(chat);
+        
         //return all who saw this message last
         return chat.people.map((person, index) => {
+            const color = person.person.username.split('_')[1];
+            //console.log(color);
             return (person.last_read === message.id) && (
                 <div 
                     key={`read-${index}`} 
                     className="read-receipt" 
-                    style={{float: isMyMessage ? 'right' : 'left', backgroundImage: `url(${person?.person?.avatar})`}}/>
+                    style={{float: isMyMessage ? 'right' : 'left', backgroundColor: color}}/>
             )
         })
     }
@@ -46,9 +50,12 @@ const ChatFeed = (props) => {
 
         return keys.map((key, index) => {
             const message = messages[key];
+            //console.log(message);
             //find previous message
             //useful for not rendering the username/profilepic again if prev msg is from same person
-            const lastMessageKey = (index === 0) ? null : key[index - 1];
+            const lastMessageKey = (index === 0) ? null : keys[index - 1];
+            //console.log(lastMessageKey);
+            
             // did "client" send this message?
             const isMyMessage = userName === message.sender.username;
 
