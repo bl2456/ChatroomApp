@@ -5,10 +5,14 @@ import './App.css';
 import ChatFeed from './components/ChatFeed';
 import JoinForm from './components/JoinForm';
 import Options from './components/Options';
+import AddChat from './components/AddChat';
+import PeopleSettings  from './components/PeopleSettings';
+
+import MessageAlert from './assets/audio/click.mp3';
 
 const App = () => {
     //If we are not "logged in", render join form
-    if(!localStorage.getItem('zooUsername')){
+    if(!sessionStorage.getItem('zooUsername')){
         return <JoinForm />
     }
 
@@ -17,10 +21,13 @@ const App = () => {
         <ChatEngine 
             height="100vh"
             projectID="870b77de-6cfe-4b98-bceb-b6c8343a389b"
-            userName={localStorage.getItem('zooUsername')}
-            userSecret={localStorage.getItem('zooPassword')}
+            userName={sessionStorage.getItem('zooUsername')}
+            userSecret={sessionStorage.getItem('zooPassword')}
             renderChatFeed={(props) => <ChatFeed {...props}/>}
-            renderOptionsSettings={(props) => <Options {...props}/>}
+            renderPeopleSettings={(creds,chat) => <PeopleSettings creds={creds} chat={chat} />}
+            renderOptionsSettings={(creds, chat) => <Options creds={creds} chat={chat} />}
+            renderNewChatForm={(creds) => <AddChat {...creds} />}
+            onNewMessage={() => new Audio(MessageAlert).play()}
         />
         //ChatEngine props taken
         // height - height of the component

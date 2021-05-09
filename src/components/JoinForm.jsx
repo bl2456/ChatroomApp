@@ -49,8 +49,8 @@ const JoinForm = () => {
             console.log(name,password);
             await axios(createUserConfig);
             console.log('after creating user');
-            await axios(addUserConfig('19273'));
-            await axios(addUserConfig('19274'));
+            await axios(addUserConfig('20479'));
+            await axios(addUserConfig('20480'));
             console.log('after adding user to testing rooms');
             await axios({
                 method: 'get',
@@ -62,8 +62,8 @@ const JoinForm = () => {
                 }
             })
 
-            localStorage.setItem('zooUsername', name);
-            localStorage.setItem('zooPassword', password);
+            sessionStorage.setItem('zooUsername', name);
+            sessionStorage.setItem('zooPassword', password);
 
             //reload to render chat app instead of JoinForm
             window.location.reload();
@@ -107,7 +107,7 @@ const JoinForm = () => {
                         </button>
                     </div>
                     <div id='error'>
-                        <span class='error-icon'>
+                        <span className='error-icon'>
                             &#x26A0;  
                         </span>
                         <span id='error-message'>

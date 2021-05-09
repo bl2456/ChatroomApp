@@ -237,7 +237,7 @@
     background: rgb(117,84,160);
     background: linear-gradient(90deg, rgba(117,84,160,1) 7%, rgba(117,84,160,1) 17%, rgba(106,95,168,1) 29%, rgba(99,103,174,1) 44%, rgba(87,116,184,1) 66%, rgba(70,135,198,1) 83%, rgba(44,163,219,1) 96%, rgba(22,188,237,1) 100%, rgba(0,212,255,1) 100%);  
     */
-    background-image: url('images/nature1.jpg');
+    background-image: url('./assets/images/nature1.jpg');
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -346,9 +346,10 @@
   
   #error {
     display: none;
-    width: 70%;
-    background-color: rgb(240, 240, 240);
+    width: 40%;
+    background-color: rgba(240, 240, 240, 0.8);
     margin: 20px 0px;
+    padding: 0px 10px;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
@@ -366,4 +367,49 @@
     font-weight: 500;
     text-align: center;
     margin: 0px 10px;
+  }
+
+  .ce-people-section{
+    border-top: 1px solid rgb(240, 240, 240);
+  }
+
+  .ce-section-title{
+    font-size: 17px;
+    padding: 12px;
+    font-weight: 600;
+  }
+
+  .ce-people-list{
+  }
+
+  .ce-person-container{
+    width: 100%;
+    display: flex;
+    margin: 2px 0px;
+  }
+  .ce-person-avatar{
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
+    color: #ffffff;
+    text-align: center;
+    background-size:48px;
+    background-position: center;
+    margin: 0;
+  }
+
+  .ce-person-avatar-text{
+    color: #ffffff;
+    text-shadow: black 0px 0px 3px;
+    padding-top: 12px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .ce-person-text{
+    padding-left: 12px;
+    height: 44px;
+    position: relative;
+    top: 10px;
+    font-size: 15px;
   }
