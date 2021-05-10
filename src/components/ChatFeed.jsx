@@ -16,7 +16,7 @@ const ChatFeed = (props) => {
 
     //if users are in some chats, then get the active one
     const chat = chats && chats[activeChat];
-    console.log(chat);
+    //console.log(chat);
     //console.log(chat, userName, messages);
     //console.log(props)
 
