@@ -26,7 +26,7 @@ const IncomingMessage = ({message, lastMessage}) => {
                 {/*  Message structure same as outgoing message, so copied code from there
                     Check if image*/}
                 
-                {(message?.attachments?.length > 0) 
+                {(message.attachments.length > 0) 
                     ? (<img 
                         src={message.attachments[0].file}
                         alt="message-attachment"

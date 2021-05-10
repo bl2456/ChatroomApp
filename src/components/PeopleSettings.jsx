@@ -2,9 +2,9 @@ import React from 'react';
 
 const PeopleSettings = ({creds, chat}) => {
     // console.log('hi');
-    // console.log(chat);
+    //console.log(chat);
     const people = chat.people;
-    
+    //console.log(people);
     return (
         <div className='ce-people-section'>
             <div className='ce-section-title-container'>
@@ -15,6 +15,9 @@ const PeopleSettings = ({creds, chat}) => {
             <div style={{height: '12px'}} />
             <div className='ce-people-list'>
                 {people.map((person, index) => {
+                    // if (person.person.is_online === false && person.person.username !== 'Brian_Blue_Lu'){
+                    //     return null;
+                    // }
                     const personNameInfo = person.person.username.split('_');
                     const color = personNameInfo[1];
                     return (
@@ -34,6 +37,7 @@ const PeopleSettings = ({creds, chat}) => {
                     )
                 })}
             </div>
+            <div style={{height: '12px'}} />
         </div>
     );
 }

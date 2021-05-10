@@ -6,6 +6,12 @@ import getRandomName from '../functions/getRandomName';
 
 const JoinForm = () => {
     const [name, setName] = useState('');
+    const [room1, setRoom1] = useState(true);
+    const [room2, setRoom2] = useState(true);
+    const [room3, setRoom3] = useState(true);
+    const [room4, setRoom4] = useState(true);
+    //console.log(room1);
+
     //sending login info to backend
     const projectID = "870b77de-6cfe-4b98-bceb-b6c8343a389b";
     const password = 'abc123';
@@ -13,10 +19,12 @@ const JoinForm = () => {
     const handleSubmit = async (e) => {
         //prevent page from reloading upon submit
         e.preventDefault();
-
         if (name === ''){
             document.querySelector('#error').style.display = 'flex';
             return;
+        }
+        else {
+            document.querySelector('.button').setAttribute("disabled", "disabled");
         }
 
         const createUserConfig = {
@@ -49,8 +57,18 @@ const JoinForm = () => {
             console.log(name,password);
             await axios(createUserConfig);
             console.log('after creating user');
-            await axios(addUserConfig('20479'));
-            await axios(addUserConfig('20480'));
+            if(room1){
+                await axios(addUserConfig('20540'));
+            }
+            if(room2){
+                await axios(addUserConfig('20541'));
+            }
+            if(room3){
+                await axios(addUserConfig('20542'));
+            }
+            if(room4){
+                await axios(addUserConfig('20543'));
+            }
             console.log('after adding user to testing rooms');
             await axios({
                 method: 'get',
@@ -106,13 +124,58 @@ const JoinForm = () => {
                             </span>
                         </button>
                     </div>
-                    <div id='error'>
+                    <div id='error' align="center">
                         <span className='error-icon'>
                             &#x26A0;  
                         </span>
                         <span id='error-message'>
                             Please get a name first
                         </span>
+                    </div>
+                    <div className="room-options-wrapper">
+                        <h3>Room Options</h3>
+                        <div className="room-options">
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    name="option1" 
+                                    checked={room1}
+                                    onChange={()=>{
+                                        setRoom1(!room1);
+                                    }}/>
+                                <label htmlFor="option1">Sports</label>
+                            </div>
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    name="option2" 
+                                    checked={room2}
+                                    onChange={()=>{
+                                        setRoom2(!room2);
+                                    }}/>
+                                <label htmlFor="option2">Art</label> 
+                            </div>
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    name="option3" 
+                                    checked={room3}
+                                    onChange={()=>{
+                                        setRoom3(!room3);
+                                    }}/>
+                                <label htmlFor="option3">Technology</label>
+                            </div>
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    name="option4" 
+                                    checked={room4}
+                                    onChange={()=>{
+                                        setRoom4(!room4);
+                                    }}/>
+                                <label htmlFor="option4">Gaming</label>
+                            </div>
+                        </div>
                     </div>
                     <div align="center">
                         <button className="button" type="submit">

@@ -28,6 +28,7 @@ const App = () => {
             renderOptionsSettings={(creds, chat) => <Options creds={creds} chat={chat} />}
             renderNewChatForm={(creds) => <AddChat {...creds} />}
             onNewMessage={() => new Audio(MessageAlert).play()}
+            onEditChat={(chatId) => console.log(chatId)}
         />
         //ChatEngine props taken
         // height - height of the component

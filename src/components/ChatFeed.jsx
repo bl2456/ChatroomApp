@@ -1,8 +1,10 @@
 import React, {useEffect, useRef} from 'react';
 
+
 import MessageForm from './MessageForm';
 import OutgoingMessage from './OutgoingMessage';
 import IncomingMessage from './IncomingMessage';
+import axios from 'axios';
 
 
 
@@ -14,8 +16,55 @@ const ChatFeed = (props) => {
 
     //if users are in some chats, then get the active one
     const chat = chats && chats[activeChat];
-    //console.log(chat);
+    console.log(chat);
     //console.log(chat, userName, messages);
+    //console.log(props)
+
+    //The code block below is for removing users that have just closed their tabs instead of logging out
+
+    const removeUserConfig = (roomId, name) => {
+        return {
+            method: 'put',
+            url: `https://api.chatengine.io/chats/${roomId}/people/`,
+            headers: { 
+                'Project-ID': "870b77de-6cfe-4b98-bceb-b6c8343a389b",
+                'User-Name': 'Brian_Blue_Lu',
+                'User-Secret': 'abc123',
+            },
+            data : {
+                'username': name
+            }
+        }
+    }
+    
+    // const adminAnnoucementConfig = (roomId, username) => {
+    //     return{
+    //         method: 'post',
+    //         url: `https://api.chatengine.io/chats/${roomId}/messages/`,
+    //         headers: { 
+    //             'Project-ID': "870b77de-6cfe-4b98-bceb-b6c8343a389b",
+    //             'User-Name': 'Brian_Blue_Lu',
+    //             'User-Secret': 'abc123',
+    //         },
+    //         data : {
+    //             'text' : `${username} has left the biome`
+    //         }
+    //     }
+    // }
+    
+    const personLefted = (username) => {
+        Object.keys(chats).forEach(async(key) => {
+            try {
+                await axios(removeUserConfig(key, username));
+                console.log(`${username} removed from chat ${key}`);
+                // await axios(adminAnnoucementConfig(key, username));
+                // console.log('Brian posted leave message for animal');
+            } catch(error) {
+                console.log(error);
+            }
+        });
+    }
+    //////////////////////////////////////////////////////////////////////////////////////
 
     const feed = useRef(null);
 
@@ -33,6 +82,9 @@ const ChatFeed = (props) => {
         
         //return all who saw this message last
         return chat.people.map((person, index) => {
+            if (person.person.is_online === false && person.person.username !== 'Brian_Blue_Lu'){
+                return null;
+            }
             const color = person.person.username.split('_')[1];
             //console.log(color);
             return (person.last_read === message.id) && (
@@ -89,30 +141,40 @@ const ChatFeed = (props) => {
     if(!chat) return 'Loading ...';
 
     return (
-        <div className="chat-feed" ref={feed}>
-            {/*Header Section */}
-            <div className='chat-title-container'>
-                <div className="chat-title">
-                    {chat.title}
-                </div>
-                <div className="chat-subtitle">
-                    {chat.people.map((person) => {
-                        return ` ${person.person.username}`;
+        <>
+            {(!chat) ? 'Loading ...' :
+                <div className="chat-feed" ref={feed}>
+                    {chat?.people.forEach(person => {
+                        if (person.person.is_online === false && person.person.username !== 'Brian_Blue_Lu' && person.last_read){
+                            personLefted(person.person.username);
+
+                        }
                     })}
+                    {/*Header Section */}
+                    <div className='chat-title-container'>
+                        <div className="chat-title">
+                            {chat.title}
+                        </div>
+                        <div className="chat-subtitle">
+                            {chat.people.map((person) => {
+                                return ` ${person.person.username}`;
+                            })}
+                        </div>
+                    </div>
+                    
+                    {/*Messages Section */}
+                    {renderMessages()}
+
+                    <div style={{height:'100px'}} />
+                    
+                    {/*Form Section*/}
+                    <div className="message-form-container">
+                        <MessageForm {... props} chatId={activeChat} />
+                    </div>
+
                 </div>
-            </div>
-            
-            {/*Messages Section */}
-            {renderMessages()}
-
-            <div style={{height:'100px'}} />
-            
-            {/*Form Section*/}
-            <div className="message-form-container">
-                <MessageForm {... props} chatId={activeChat} />
-            </div>
-
-        </div>
+            }
+        </>
     )
 }
 
